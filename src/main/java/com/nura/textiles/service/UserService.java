@@ -6,6 +6,6 @@ public interface UserService {
 
 	public User saveUser(User user);
 
-	public User findUserByLoginId(String loginId);
+	public User findUserByUserName(String loginId);
 
 }

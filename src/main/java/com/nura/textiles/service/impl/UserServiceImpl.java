@@ -1,9 +1,9 @@
 package com.nura.textiles.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.nura.textiles.configuration.GlobalConfiguration;
 import com.nura.textiles.entity.user.User;
 import com.nura.textiles.repository.UserRepository;
 import com.nura.textiles.service.UserService;
@@ -13,9 +13,10 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepo;
-
+	
 	@Autowired
-	private GlobalConfiguration globalConfig;
+	private PasswordEncoder passwordEncoder;
+
 
 	@Override
 	public User saveUser(User user) {
@@ -24,12 +25,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findUserByLoginId(String loginId) {
-		return null;
+	public User findUserByUserName(String username) {
+		return userRepo.getUserByUsername(username);
 	}
 
 	private String encryptUserPassword(String password) {
-		return globalConfig.encoder().encode(password);
+		return passwordEncoder.encode(password);
 	}
 
 }

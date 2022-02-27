@@ -14,13 +14,13 @@ import com.nura.textiles.entity.user.User;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @Rollback(false)
-public class UserRepositoryTest {
+class UserRepositoryTest {
 
 	@Autowired
 	private UserRepository userRepo;
 	
 	@Test
-	public void testSaveUser() {
+	void testSaveUser() {
 		User user = new User();
 		user.setActive(true);
 		user.setFirstName("Arun");

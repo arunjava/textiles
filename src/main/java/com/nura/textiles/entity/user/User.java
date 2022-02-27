@@ -20,15 +20,13 @@ import javax.persistence.Table;
 import com.nura.textiles.entity.ProbeClass;
 import com.nura.textiles.utils.Constants;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user", schema = Constants.SCHEMA_TEXTILES)
-@Getter
-@Setter
-@ToString
+@Data
+@NoArgsConstructor
 public class User implements Serializable {
 
 	/**
