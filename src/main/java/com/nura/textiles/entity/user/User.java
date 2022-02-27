@@ -1,25 +1,31 @@
 package com.nura.textiles.entity.user;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.nura.textiles.entity.ProbeClass;
+import com.nura.textiles.utils.Constants;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = Constants.SCHEMA_TEXTILES)
 @Getter
 @Setter
 @ToString
@@ -42,11 +48,16 @@ public class User implements Serializable {
 	private String lastName;
 	@Column(name = "is_active")
 	private boolean isActive;
+	@Column(name = "user_name")
+	private String username;
+	@Column(name = "user_pwd")
+	private String password;
 
 	@Embedded
 	private ProbeClass probeClass;
 
-	@OneToMany
-	private List<UserRole> userRoles;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "users_role_map", schema = Constants.SCHEMA_TEXTILES, joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private Set<UserRole> roles = new HashSet<>();
 
 }
